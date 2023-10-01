@@ -1,0 +1,45 @@
+import {Button, Card, Col, Row} from "react-bootstrap";
+import {OnlineUsersDataType, useUserStore} from "../store/userStore.ts";
+import {socket} from "../App.tsx";
+
+type SingleUserCardProps = {
+    user: OnlineUsersDataType
+}
+
+const SingleUserCard = ({user}: SingleUserCardProps) => {
+
+    const userSocketId = useUserStore(state => state.userSocketId)
+
+    const sendToSocketId = user.id
+
+    const senderUsername = useUserStore(state => state.user?.username)
+
+    const handleRequest = () => {
+        socket.emit("battleRequest", sendToSocketId, senderUsername)
+    }
+
+    return (
+        <>
+            {user.id !== userSocketId &&
+                <div className="border p-2 rounded mb-2">
+                    <Row>
+                        <Col>
+                            <div className="d-flex align-items-center">
+                                <Card style={{padding: "0px", width: "50px"}}>
+                                    <Card.Img src={user.user.character.image}/>
+                                </Card>
+                                <p className="mx-2">{user.user.username}</p>
+                            </div>
+                        </Col>
+                        <Col className="text-end">
+                            <Button onClick={handleRequest}>Send Battle Request</Button>
+                        </Col>
+                    </Row>
+                </div>
+            }
+        </>
+
+    );
+};
+
+export default SingleUserCard;
