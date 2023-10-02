@@ -34,22 +34,7 @@ export type OnlineUsersDataType = {
     }
 }
 
-export type GeneratedItemType = {
-    category: string;
-    name: string;
-    image: string;
-    minDamage: number | null;
-    maxDamage: number | null;
-    minArmor: number | null;
-    maxArmor: number | null;
-    grade: string;
-    slots: number;
-    healing: number
-    effects: {
-        effectName: string
-        chance: number
-    }[] | []
-}[]
+export type GeneratedItemType = SingleItemType[]
 
 type UserStoreType = {
     userSocketId: string | null

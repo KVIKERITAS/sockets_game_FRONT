@@ -9,13 +9,22 @@ type SingleUserCardProps = {
 const SingleUserCard = ({user}: SingleUserCardProps) => {
 
     const userSocketId = useUserStore(state => state.userSocketId)
+    const senderUsername = useUserStore(state => state.user?.username)
+    const senderCharacter = useUserStore(state => state.user?.character)
 
     const sendToSocketId = user.id
+    const weapon = useUserStore(state => state.userEquippedWeapon)
+    const armor = useUserStore(state => state.userEquippedArmor)
+    const potion = useUserStore(state => state.userEquippedPotion)
 
-    const senderUsername = useUserStore(state => state.user?.username)
+    const equipment = {
+        weapon,
+        armor,
+        potion
+    }
 
     const handleRequest = () => {
-        socket.emit("battleRequest", sendToSocketId, senderUsername)
+        socket.emit("battleRequest", sendToSocketId, senderUsername, equipment, senderCharacter)
     }
 
     return (
