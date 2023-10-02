@@ -17,6 +17,10 @@ const ArenaPage = ({roomId}:ArenaPageType) => {
         socket.emit("usedAttack", currentUsername, roomId, battleData)
     }
 
+    const handleHeal = () => {
+        socket.emit("usedPotion", currentUsername, roomId, battleData)
+    }
+
     return (
         <div className="container rounded">
             <Row>
@@ -32,7 +36,7 @@ const ArenaPage = ({roomId}:ArenaPageType) => {
                                 <Button onClick={handleAttack}>
                                     ATTACK
                                 </Button>
-                                <Button variant="success">
+                                <Button variant="success" onClick={handleHeal}>
                                     USE POTION
                                 </Button>
                             </>

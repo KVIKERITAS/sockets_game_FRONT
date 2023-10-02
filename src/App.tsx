@@ -65,6 +65,13 @@ function App() {
         socket.on("getResult", data => {
             setBattleData(data)
         })
+
+        socket.on("fightFinish", message => {
+            setModalType("error")
+            setModalText(message)
+            setShowModal(true)
+            nav("/game")
+        })
     }, []);
 
     return (

@@ -2,7 +2,7 @@ import {Button, Form} from "react-bootstrap";
 import Character from "../components/Character.tsx";
 import {useEffect, useRef, useState} from "react";
 import {useCharactersStore} from "../store/charactersStore.ts";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const RegisterPage = () => {
     const setCharacters = useCharactersStore(state => state.setCharacters)
@@ -21,6 +21,8 @@ const RegisterPage = () => {
     const usernameRef = useRef<HTMLInputElement | null>(null)
     const passwordOneRef = useRef<HTMLInputElement | null>(null)
     const passwordTwoRef = useRef<HTMLInputElement | null>(null)
+
+    const nav = useNavigate()
 
     const handleRegister = async (e:React.FormEvent<HTMLFormElement>):Promise<void> => {
         e.preventDefault()
@@ -52,6 +54,9 @@ const RegisterPage = () => {
         const data = await res.json()
 
         if (data.error) return setError(data.message)
+
+        alert("User successfully created")
+        nav("/login")
     }
 
     return (
