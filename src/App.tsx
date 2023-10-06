@@ -72,6 +72,13 @@ function App() {
             setShowModal(true)
             nav("/game")
         })
+
+        socket.on("battleWon", message => {
+            setModalType("error")
+            setModalText(message)
+            setShowModal(true)
+            nav("/game")
+        })
     }, []);
 
     return (

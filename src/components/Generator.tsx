@@ -14,15 +14,16 @@ const Generator = () => {
     return (
         <Col>
             <h4>Item Generator</h4>
-            <div className="d-flex justify-content-between gap-1">
-                {userGeneratedItems.map((item, idx) =>
-                    <GeneratedItem key={idx} item={item}/>
-                )}
-            </div>
 
             <Button className="w-100 p-3 mt-2 fw-bolder" onClick={generateWeapons}>
                 GENERATE <CircleStackIcon className="text-warning" style={{width: "20px"}}/>
             </Button>
+
+            <div className="d-flex justify-content-between gap-1 mt-2">
+                {userGeneratedItems.map((item, idx) =>
+                    <GeneratedItem key={idx} item={item}/>
+                )}
+            </div>
         </Col>
     );
 };
