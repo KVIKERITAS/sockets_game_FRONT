@@ -22,6 +22,7 @@ function App() {
     const [modalType, setModalType] = useState("")
     const [modalTitle, setModalTitle] = useState("")
     const [roomId, setRoomId] = useState("")
+    const [timer, setTimer] = useState(0)
 
     const nav = useNavigate()
 
@@ -63,10 +64,12 @@ function App() {
             setRoomId(data.id)
             setBattleData(data)
             nav("/arena")
+            setTimer(20)
         })
 
         socket.on("getResult", data => {
             setBattleData(data)
+            setTimer(20)
         })
 
         socket.on("battleWon", (message, userData) => {
@@ -94,6 +97,11 @@ function App() {
             setUser(null)
             nav("/login")
         })
+
+        socket.on("turnOver", data => {
+            setBattleData(data)
+            setTimer(20)
+        })
     }, []);
 
     return (
@@ -104,7 +112,7 @@ function App() {
                 <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/game" element={<GamePage/>}/>
-                <Route path="/arena" element={<ArenaPage roomId={roomId}/>}/>
+                <Route path="/arena" element={<ArenaPage roomId={roomId} timer={timer} setTimer={setTimer}/>}/>
             </Routes>
         </>
     )
