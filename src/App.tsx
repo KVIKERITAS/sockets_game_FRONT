@@ -73,7 +73,15 @@ function App() {
             nav("/game")
         })
 
-        socket.on("battleWon", message => {
+        socket.on("battleWon", (message, userData) => {
+            setUser(userData[0])
+            setModalType("error")
+            setModalText(message)
+            setShowModal(true)
+            nav("/game")
+        })
+
+        socket.on("battleLost", message => {
             setModalType("error")
             setModalText(message)
             setShowModal(true)

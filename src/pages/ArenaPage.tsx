@@ -12,15 +12,17 @@ const ArenaPage = ({roomId}:ArenaPageType) => {
 
     const battleData = useBattleStore(state => state.battleData)
     const currentUsername = useUserStore(state => state.user?.username)
+    const setUserEquippedPotion = useUserStore(state => state.setUserEquippedPotion)
+
 
     const handleAttack = () => {
-        socket.emit("usedAttack", currentUsername, roomId, battleData)
+        socket.emit("usedAttack", roomId)
     }
 
     const handleHeal = () => {
-        socket.emit("usedPotion", currentUsername, roomId, battleData)
+        socket.emit("usedPotion", roomId)
+        setUserEquippedPotion(null)
     }
-
     return (
         <div className="container rounded">
             <Row>

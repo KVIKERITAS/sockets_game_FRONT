@@ -50,7 +50,7 @@ type UserStoreType = {
     setUserGeneratedItems: (data:GeneratedItemType) => void
     setUserEquippedWeapon: (data: SingleItemType) => void
     setUserEquippedArmor: (data:SingleItemType) => void
-    setUserEquippedPotion: (data:SingleItemType) => void
+    setUserEquippedPotion: (data:SingleItemType | null) => void
 }
 
 export const useUserStore = create<UserStoreType>((set) => ({

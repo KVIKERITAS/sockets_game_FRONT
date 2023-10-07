@@ -11,6 +11,7 @@ export type PlayerStatsType = {
         potion: SingleItemType | undefined
     }
     character: CharactersDataType
+    experienceGained: number
 }
 
 type BattleDataType = {
