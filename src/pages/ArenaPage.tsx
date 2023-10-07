@@ -18,7 +18,7 @@ const ArenaPage = ({roomId, timer, setTimer}: ArenaPageType) => {
     const setUserEquippedPotion = useUserStore(state => state.setUserEquippedPotion)
 
     useEffect(() => {
-        if (timer <= 0) {
+        if (timer <= 0 && currentUsername === battleData?.turn) {
             socket.emit("timeOut", roomId)
             return
         }
@@ -50,8 +50,9 @@ const ArenaPage = ({roomId, timer, setTimer}: ArenaPageType) => {
                 <Col>
                     <div
                         className="text-center d-flex flex-column gap-3 align-items-center justify-content-center h-100">
-                        {battleData?.turn === currentUsername &&
+                        {battleData?.turn === currentUsername ?
                             <>
+                                <p>Your turn</p>
                                 {timer}
                                 <Button onClick={handleAttack}>
                                     ATTACK
@@ -59,6 +60,11 @@ const ArenaPage = ({roomId, timer, setTimer}: ArenaPageType) => {
                                 <Button variant="success" onClick={handleHeal}>
                                     USE POTION
                                 </Button>
+                            </>
+                            :
+                            <>
+                                <p>Enemy turn</p>
+                                {timer}
                             </>
                         }
 
