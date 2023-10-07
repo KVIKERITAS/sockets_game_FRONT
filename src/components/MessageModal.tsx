@@ -8,9 +8,10 @@ type BattleModalType = {
     text: string
     modalType: string
     roomId: string
+    modalTitle: string
 }
 
-const MessageModal = ({showModal, setShowModal, text, modalType, roomId}: BattleModalType) => {
+const MessageModal = ({showModal, setShowModal, text, modalType, roomId, modalTitle}: BattleModalType) => {
 
     const user = useUserStore(state => state.user)
 
@@ -40,7 +41,7 @@ const MessageModal = ({showModal, setShowModal, text, modalType, roomId}: Battle
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Battle request</Modal.Title>
+                    <Modal.Title>{modalTitle}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {text}

@@ -20,6 +20,7 @@ function App() {
     const [showModal, setShowModal] = useState(false);
     const [modalText, setModalText] = useState("")
     const [modalType, setModalType] = useState("")
+    const [modalTitle, setModalTitle] = useState("")
     const [roomId, setRoomId] = useState("")
 
     const nav = useNavigate()
@@ -47,11 +48,13 @@ function App() {
             setRoomId(roomId)
             setModalType("request")
             setModalText(message)
+            setModalTitle("Battle request")
             setShowModal(true)
         })
 
         socket.on("noWeapon", message => {
             setModalType("error")
+            setModalTitle("Error")
             setModalText(message)
             setShowModal(true)
         })
@@ -66,18 +69,12 @@ function App() {
             setBattleData(data)
         })
 
-        socket.on("fightFinish", message => {
-            setModalType("error")
-            setModalText(message)
-            setShowModal(true)
-            nav("/game")
-        })
-
         socket.on("battleWon", (message, userData) => {
             setUser(userData[0])
             setModalType("error")
             setModalText(message)
             setShowModal(true)
+            setModalTitle("Victory")
             nav("/game")
         })
 
@@ -85,13 +82,23 @@ function App() {
             setModalType("error")
             setModalText(message)
             setShowModal(true)
+            setModalTitle("Defeat")
             nav("/game")
+        })
+
+        socket.on("userOnline", message => {
+            setModalType("error")
+            setModalText(message)
+            setShowModal(true)
+            setModalTitle("Error")
+            setUser(null)
+            nav("/login")
         })
     }, []);
 
     return (
         <>
-            <MessageModal showModal={showModal} setShowModal={setShowModal} text={modalText} modalType={modalType} roomId={roomId} />
+            <MessageModal showModal={showModal} setShowModal={setShowModal} text={modalText} modalType={modalType} modalTitle={modalTitle} roomId={roomId} />
             <Routes>
                 <Route path="/" element={<HomePage/>}/>
                 <Route path="/register" element={<RegisterPage/>}/>
