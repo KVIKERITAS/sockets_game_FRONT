@@ -1,6 +1,6 @@
 import { create } from 'zustand'
-import {SingleItemType} from "./userStore.ts";
 import {CharactersDataType} from "./charactersStore.ts";
+import {SingleItemType} from './SingleItemType'
 
 export type PlayerStatsType = {
     username: string
